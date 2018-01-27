@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SisGerProModelStoreContainer" CdmEntityContainer="SisGerProEntities">
+    <EntitySetMapping Name="Atividades">
+      <EntityTypeMapping TypeName="SisGerProModel.Atividades">
+        <MappingFragment StoreEntitySet="Atividades">
+          <ScalarProperty Name="id_Atividade" ColumnName="id_Atividade" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Feita" ColumnName="Feita" />
+          <ScalarProperty Name="DtFeita" ColumnName="DtFeita" />
+          <ScalarProperty Name="id_Etapa" ColumnName="id_Etapa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Etapas">
+      <EntityTypeMapping TypeName="SisGerProModel.Etapas">
+        <MappingFragment StoreEntitySet="Etapas">
+          <ScalarProperty Name="id_Etapa" ColumnName="id_Etapa" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Feita" ColumnName="Feita" />
+          <ScalarProperty Name="DtFeita" ColumnName="DtFeita" />
+          <ScalarProperty Name="id_Projeto" ColumnName="id_Projeto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pessoa_Projetos">
+      <EntityTypeMapping TypeName="SisGerProModel.Pessoa_Projetos">
+        <MappingFragment StoreEntitySet="Pessoa_Projetos">
+          <ScalarProperty Name="id_PessoaProjetos" ColumnName="id_PessoaProjetos" />
+          <ScalarProperty Name="id_Pessoa" ColumnName="id_Pessoa" />
+          <ScalarProperty Name="id_Projeto" ColumnName="id_Projeto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pessoas">
+      <EntityTypeMapping TypeName="SisGerProModel.Pessoas">
+        <MappingFragment StoreEntitySet="Pessoas">
+          <ScalarProperty Name="id_Pessoa" ColumnName="id_Pessoa" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projetos">
+      <EntityTypeMapping TypeName="SisGerProModel.Projetos">
+        <MappingFragment StoreEntitySet="Projetos">
+          <ScalarProperty Name="id_Projeto" ColumnName="id_Projeto" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="id_Pessoa_Responsavel" ColumnName="id_Pessoa_Responsavel" />
+          <ScalarProperty Name="Finalizado" ColumnName="Finalizado" />
+          <ScalarProperty Name="DtInicio" ColumnName="DtInicio" />
+          <ScalarProperty Name="DtFim" ColumnName="DtFim" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

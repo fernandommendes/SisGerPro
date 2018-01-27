@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SisGerProModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Atividades">
+    <Key>
+      <PropertyRef Name="id_Atividade" />
+    </Key>
+    <Property Name="id_Atividade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Feita" Type="bit" Nullable="false" />
+    <Property Name="DtFeita" Type="datetime" />
+    <Property Name="id_Etapa" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Etapas">
+    <Key>
+      <PropertyRef Name="id_Etapa" />
+    </Key>
+    <Property Name="id_Etapa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Feita" Type="bit" Nullable="false" />
+    <Property Name="DtFeita" Type="datetime" />
+    <Property Name="id_Projeto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pessoa_Projetos">
+    <Key>
+      <PropertyRef Name="id_PessoaProjetos" />
+    </Key>
+    <Property Name="id_PessoaProjetos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_Pessoa" Type="int" Nullable="false" />
+    <Property Name="id_Projeto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pessoas">
+    <Key>
+      <PropertyRef Name="id_Pessoa" />
+    </Key>
+    <Property Name="id_Pessoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projetos">
+    <Key>
+      <PropertyRef Name="id_Projeto" />
+    </Key>
+    <Property Name="id_Projeto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="id_Pessoa_Responsavel" Type="int" Nullable="false" />
+    <Property Name="Finalizado" Type="bit" Nullable="false" />
+    <Property Name="DtInicio" Type="datetime" />
+    <Property Name="DtFim" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__Atividade__id_Et__32E0915F">
+    <End Role="Etapas" Type="Self.Etapas" Multiplicity="1" />
+    <End Role="Atividades" Type="Self.Atividades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etapas">
+        <PropertyRef Name="id_Etapa" />
+      </Principal>
+      <Dependent Role="Atividades">
+        <PropertyRef Name="id_Etapa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Etapas__id_Proje__1B0907CE">
+    <End Role="Projetos" Type="Self.Projetos" Multiplicity="1" />
+    <End Role="Etapas" Type="Self.Etapas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projetos">
+        <PropertyRef Name="id_Projeto" />
+      </Principal>
+      <Dependent Role="Etapas">
+        <PropertyRef Name="id_Projeto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pessoa_Pr__id_Pe__164452B1">
+    <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+    <End Role="Pessoa_Projetos" Type="Self.Pessoa_Projetos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoas">
+        <PropertyRef Name="id_Pessoa" />
+      </Principal>
+      <Dependent Role="Pessoa_Projetos">
+        <PropertyRef Name="id_Pessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pessoa_Pr__id_Pr__173876EA">
+    <End Role="Projetos" Type="Self.Projetos" Multiplicity="1" />
+    <End Role="Pessoa_Projetos" Type="Self.Pessoa_Projetos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projetos">
+        <PropertyRef Name="id_Projeto" />
+      </Principal>
+      <Dependent Role="Pessoa_Projetos">
+        <PropertyRef Name="id_Projeto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Projetos__id_Pes__1367E606">
+    <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+    <End Role="Projetos" Type="Self.Projetos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoas">
+        <PropertyRef Name="id_Pessoa" />
+      </Principal>
+      <Dependent Role="Projetos">
+        <PropertyRef Name="id_Pessoa_Responsavel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SisGerProModelStoreContainer">
+    <EntitySet Name="Atividades" EntityType="Self.Atividades" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Etapas" EntityType="Self.Etapas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pessoa_Projetos" EntityType="Self.Pessoa_Projetos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pessoas" EntityType="Self.Pessoas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Projetos" EntityType="Self.Projetos" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Atividade__id_Et__32E0915F" Association="Self.FK__Atividade__id_Et__32E0915F">
+      <End Role="Etapas" EntitySet="Etapas" />
+      <End Role="Atividades" EntitySet="Atividades" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Etapas__id_Proje__1B0907CE" Association="Self.FK__Etapas__id_Proje__1B0907CE">
+      <End Role="Projetos" EntitySet="Projetos" />
+      <End Role="Etapas" EntitySet="Etapas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pessoa_Pr__id_Pe__164452B1" Association="Self.FK__Pessoa_Pr__id_Pe__164452B1">
+      <End Role="Pessoas" EntitySet="Pessoas" />
+      <End Role="Pessoa_Projetos" EntitySet="Pessoa_Projetos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pessoa_Pr__id_Pr__173876EA" Association="Self.FK__Pessoa_Pr__id_Pr__173876EA">
+      <End Role="Projetos" EntitySet="Projetos" />
+      <End Role="Pessoa_Projetos" EntitySet="Pessoa_Projetos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Projetos__id_Pes__1367E606" Association="Self.FK__Projetos__id_Pes__1367E606">
+      <End Role="Pessoas" EntitySet="Pessoas" />
+      <End Role="Projetos" EntitySet="Projetos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

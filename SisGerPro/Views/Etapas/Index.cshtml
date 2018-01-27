@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SisGerPro.Models.Etapas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Feita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtFeita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Projetos.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Feita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DtFeita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Projetos.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_Etapa }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_Etapa }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_Etapa })
+        </td>
+    </tr>
+}
+
+</table>

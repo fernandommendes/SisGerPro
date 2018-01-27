@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SisGerPro.Models.Atividades>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Feita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtFeita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Etapas.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Feita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DtFeita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etapas.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_Atividade }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_Atividade }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_Atividade })
+        </td>
+    </tr>
+}
+
+</table>

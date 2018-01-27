@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SisGerProModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Atividades">
+          <Key>
+            <PropertyRef Name="id_Atividade" />
+          </Key>
+          <Property Name="id_Atividade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Feita" Type="bit" Nullable="false" />
+          <Property Name="DtFeita" Type="datetime" />
+          <Property Name="id_Etapa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Etapas">
+          <Key>
+            <PropertyRef Name="id_Etapa" />
+          </Key>
+          <Property Name="id_Etapa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Feita" Type="bit" Nullable="false" />
+          <Property Name="DtFeita" Type="datetime" />
+          <Property Name="id_Projeto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pessoa_Projetos">
+          <Key>
+            <PropertyRef Name="id_PessoaProjetos" />
+          </Key>
+          <Property Name="id_PessoaProjetos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Pessoa" Type="int" Nullable="false" />
+          <Property Name="id_Projeto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pessoas">
+          <Key>
+            <PropertyRef Name="id_Pessoa" />
+          </Key>
+          <Property Name="id_Pessoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projetos">
+          <Key>
+            <PropertyRef Name="id_Projeto" />
+          </Key>
+          <Property Name="id_Projeto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="id_Pessoa_Responsavel" Type="int" Nullable="false" />
+          <Property Name="Finalizado" Type="bit" Nullable="false" />
+          <Property Name="DtInicio" Type="datetime" />
+          <Property Name="DtFim" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Atividade__id_Et__32E0915F">
+          <End Role="Etapas" Type="Self.Etapas" Multiplicity="1" />
+          <End Role="Atividades" Type="Self.Atividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etapas">
+              <PropertyRef Name="id_Etapa" />
+            </Principal>
+            <Dependent Role="Atividades">
+              <PropertyRef Name="id_Etapa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Etapas__id_Proje__1B0907CE">
+          <End Role="Projetos" Type="Self.Projetos" Multiplicity="1" />
+          <End Role="Etapas" Type="Self.Etapas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projetos">
+              <PropertyRef Name="id_Projeto" />
+            </Principal>
+            <Dependent Role="Etapas">
+              <PropertyRef Name="id_Projeto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pessoa_Pr__id_Pe__164452B1">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="Pessoa_Projetos" Type="Self.Pessoa_Projetos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="id_Pessoa" />
+            </Principal>
+            <Dependent Role="Pessoa_Projetos">
+              <PropertyRef Name="id_Pessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pessoa_Pr__id_Pr__173876EA">
+          <End Role="Projetos" Type="Self.Projetos" Multiplicity="1" />
+          <End Role="Pessoa_Projetos" Type="Self.Pessoa_Projetos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projetos">
+              <PropertyRef Name="id_Projeto" />
+            </Principal>
+            <Dependent Role="Pessoa_Projetos">
+              <PropertyRef Name="id_Projeto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projetos__id_Pes__1367E606">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="Projetos" Type="Self.Projetos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="id_Pessoa" />
+            </Principal>
+            <Dependent Role="Projetos">
+              <PropertyRef Name="id_Pessoa_Responsavel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SisGerProModelStoreContainer">
+          <EntitySet Name="Atividades" EntityType="Self.Atividades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Etapas" EntityType="Self.Etapas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pessoa_Projetos" EntityType="Self.Pessoa_Projetos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pessoas" EntityType="Self.Pessoas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projetos" EntityType="Self.Projetos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Atividade__id_Et__32E0915F" Association="Self.FK__Atividade__id_Et__32E0915F">
+            <End Role="Etapas" EntitySet="Etapas" />
+            <End Role="Atividades" EntitySet="Atividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Etapas__id_Proje__1B0907CE" Association="Self.FK__Etapas__id_Proje__1B0907CE">
+            <End Role="Projetos" EntitySet="Projetos" />
+            <End Role="Etapas" EntitySet="Etapas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pessoa_Pr__id_Pe__164452B1" Association="Self.FK__Pessoa_Pr__id_Pe__164452B1">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="Pessoa_Projetos" EntitySet="Pessoa_Projetos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pessoa_Pr__id_Pr__173876EA" Association="Self.FK__Pessoa_Pr__id_Pr__173876EA">
+            <End Role="Projetos" EntitySet="Projetos" />
+            <End Role="Pessoa_Projetos" EntitySet="Pessoa_Projetos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projetos__id_Pes__1367E606" Association="Self.FK__Projetos__id_Pes__1367E606">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="Projetos" EntitySet="Projetos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SisGerProModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Atividades">
+          <Key>
+            <PropertyRef Name="id_Atividade" />
+          </Key>
+          <Property Name="id_Atividade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Feita" Type="Boolean" Nullable="false" />
+          <Property Name="DtFeita" Type="DateTime" Precision="3" />
+          <Property Name="id_Etapa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Etapas" Relationship="Self.FK__Atividade__id_Et__32E0915F" FromRole="Atividades" ToRole="Etapas" />
+        </EntityType>
+        <EntityType Name="Etapas">
+          <Key>
+            <PropertyRef Name="id_Etapa" />
+          </Key>
+          <Property Name="id_Etapa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Feita" Type="Boolean" Nullable="false" />
+          <Property Name="DtFeita" Type="DateTime" Precision="3" />
+          <Property Name="id_Projeto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Atividades" Relationship="Self.FK__Atividade__id_Et__32E0915F" FromRole="Etapas" ToRole="Atividades" />
+          <NavigationProperty Name="Projetos" Relationship="Self.FK__Etapas__id_Proje__1B0907CE" FromRole="Etapas" ToRole="Projetos" />
+        </EntityType>
+        <EntityType Name="Pessoa_Projetos">
+          <Key>
+            <PropertyRef Name="id_PessoaProjetos" />
+          </Key>
+          <Property Name="id_PessoaProjetos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Pessoa" Type="Int32" Nullable="false" />
+          <Property Name="id_Projeto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pessoas" Relationship="Self.FK__Pessoa_Pr__id_Pe__164452B1" FromRole="Pessoa_Projetos" ToRole="Pessoas" />
+          <NavigationProperty Name="Projetos" Relationship="Self.FK__Pessoa_Pr__id_Pr__173876EA" FromRole="Pessoa_Projetos" ToRole="Projetos" />
+        </EntityType>
+        <EntityType Name="Pessoas">
+          <Key>
+            <PropertyRef Name="id_Pessoa" />
+          </Key>
+          <Property Name="id_Pessoa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pessoa_Projetos" Relationship="Self.FK__Pessoa_Pr__id_Pe__164452B1" FromRole="Pessoas" ToRole="Pessoa_Projetos" />
+          <NavigationProperty Name="Projetos" Relationship="Self.FK__Projetos__id_Pes__1367E606" FromRole="Pessoas" ToRole="Projetos" />
+        </EntityType>
+        <EntityType Name="Projetos">
+          <Key>
+            <PropertyRef Name="id_Projeto" />
+          </Key>
+          <Property Name="id_Projeto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_Pessoa_Responsavel" Type="Int32" Nullable="false" />
+          <Property Name="Finalizado" Type="Boolean" Nullable="false" />
+          <Property Name="DtInicio" Type="DateTime" Precision="3" />
+          <Property Name="DtFim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Etapas" Relationship="Self.FK__Etapas__id_Proje__1B0907CE" FromRole="Projetos" ToRole="Etapas" />
+          <NavigationProperty Name="Pessoa_Projetos" Relationship="Self.FK__Pessoa_Pr__id_Pr__173876EA" FromRole="Projetos" ToRole="Pessoa_Projetos" />
+          <NavigationProperty Name="Pessoas" Relationship="Self.FK__Projetos__id_Pes__1367E606" FromRole="Projetos" ToRole="Pessoas" />
+        </EntityType>
+        <Association Name="FK__Atividade__id_Et__32E0915F">
+          <End Role="Etapas" Type="Self.Etapas" Multiplicity="1" />
+          <End Role="Atividades" Type="Self.Atividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etapas">
+              <PropertyRef Name="id_Etapa" />
+            </Principal>
+            <Dependent Role="Atividades">
+              <PropertyRef Name="id_Etapa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Etapas__id_Proje__1B0907CE">
+          <End Role="Projetos" Type="Self.Projetos" Multiplicity="1" />
+          <End Role="Etapas" Type="Self.Etapas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projetos">
+              <PropertyRef Name="id_Projeto" />
+            </Principal>
+            <Dependent Role="Etapas">
+              <PropertyRef Name="id_Projeto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pessoa_Pr__id_Pe__164452B1">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="Pessoa_Projetos" Type="Self.Pessoa_Projetos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="id_Pessoa" />
+            </Principal>
+            <Dependent Role="Pessoa_Projetos">
+              <PropertyRef Name="id_Pessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pessoa_Pr__id_Pr__173876EA">
+          <End Role="Projetos" Type="Self.Projetos" Multiplicity="1" />
+          <End Role="Pessoa_Projetos" Type="Self.Pessoa_Projetos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projetos">
+              <PropertyRef Name="id_Projeto" />
+            </Principal>
+            <Dependent Role="Pessoa_Projetos">
+              <PropertyRef Name="id_Projeto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projetos__id_Pes__1367E606">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="Projetos" Type="Self.Projetos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="id_Pessoa" />
+            </Principal>
+            <Dependent Role="Projetos">
+              <PropertyRef Name="id_Pessoa_Responsavel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SisGerProEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Atividades" EntityType="Self.Atividades" />
+          <EntitySet Name="Etapas" EntityType="Self.Etapas" />
+          <EntitySet Name="Pessoa_Projetos" EntityType="Self.Pessoa_Projetos" />
+          <EntitySet Name="Pessoas" EntityType="Self.Pessoas" />
+          <EntitySet Name="Projetos" EntityType="Self.Projetos" />
+          <AssociationSet Name="FK__Atividade__id_Et__32E0915F" Association="Self.FK__Atividade__id_Et__32E0915F">
+            <End Role="Etapas" EntitySet="Etapas" />
+            <End Role="Atividades" EntitySet="Atividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Etapas__id_Proje__1B0907CE" Association="Self.FK__Etapas__id_Proje__1B0907CE">
+            <End Role="Projetos" EntitySet="Projetos" />
+            <End Role="Etapas" EntitySet="Etapas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pessoa_Pr__id_Pe__164452B1" Association="Self.FK__Pessoa_Pr__id_Pe__164452B1">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="Pessoa_Projetos" EntitySet="Pessoa_Projetos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pessoa_Pr__id_Pr__173876EA" Association="Self.FK__Pessoa_Pr__id_Pr__173876EA">
+            <End Role="Projetos" EntitySet="Projetos" />
+            <End Role="Pessoa_Projetos" EntitySet="Pessoa_Projetos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projetos__id_Pes__1367E606" Association="Self.FK__Projetos__id_Pes__1367E606">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="Projetos" EntitySet="Projetos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SisGerProModelStoreContainer" CdmEntityContainer="SisGerProEntities">
+          <EntitySetMapping Name="Atividades">
+            <EntityTypeMapping TypeName="SisGerProModel.Atividades">
+              <MappingFragment StoreEntitySet="Atividades">
+                <ScalarProperty Name="id_Atividade" ColumnName="id_Atividade" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Feita" ColumnName="Feita" />
+                <ScalarProperty Name="DtFeita" ColumnName="DtFeita" />
+                <ScalarProperty Name="id_Etapa" ColumnName="id_Etapa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Etapas">
+            <EntityTypeMapping TypeName="SisGerProModel.Etapas">
+              <MappingFragment StoreEntitySet="Etapas">
+                <ScalarProperty Name="id_Etapa" ColumnName="id_Etapa" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Feita" ColumnName="Feita" />
+                <ScalarProperty Name="DtFeita" ColumnName="DtFeita" />
+                <ScalarProperty Name="id_Projeto" ColumnName="id_Projeto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pessoa_Projetos">
+            <EntityTypeMapping TypeName="SisGerProModel.Pessoa_Projetos">
+              <MappingFragment StoreEntitySet="Pessoa_Projetos">
+                <ScalarProperty Name="id_PessoaProjetos" ColumnName="id_PessoaProjetos" />
+                <ScalarProperty Name="id_Pessoa" ColumnName="id_Pessoa" />
+                <ScalarProperty Name="id_Projeto" ColumnName="id_Projeto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pessoas">
+            <EntityTypeMapping TypeName="SisGerProModel.Pessoas">
+              <MappingFragment StoreEntitySet="Pessoas">
+                <ScalarProperty Name="id_Pessoa" ColumnName="id_Pessoa" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projetos">
+            <EntityTypeMapping TypeName="SisGerProModel.Projetos">
+              <MappingFragment StoreEntitySet="Projetos">
+                <ScalarProperty Name="id_Projeto" ColumnName="id_Projeto" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="id_Pessoa_Responsavel" ColumnName="id_Pessoa_Responsavel" />
+                <ScalarProperty Name="Finalizado" ColumnName="Finalizado" />
+                <ScalarProperty Name="DtInicio" ColumnName="DtInicio" />
+                <ScalarProperty Name="DtFim" ColumnName="DtFim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

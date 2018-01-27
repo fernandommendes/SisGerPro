@@ -1,0 +1,58 @@
+﻿@model SisGerPro.Models.Projetos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Projetos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Finalizado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Finalizado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DtInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DtInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DtFim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DtFim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pessoas.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pessoas.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_Projeto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
